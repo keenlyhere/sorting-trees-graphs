@@ -24,7 +24,7 @@ function findMaxBST (rootNode) {
 
 function findMinBT (rootNode) {
 
-  if (rootNode === null) return Infinity;
+  if (!rootNode) return;
 
   let min = rootNode.val;
   let left = findMinBT(rootNode.left);
@@ -38,7 +38,7 @@ function findMinBT (rootNode) {
 
 function findMaxBT (rootNode) {
 
-  if (!rootNode) return -Infinity;
+  if (!rootNode) return;
 
   let max = rootNode.val;
   let left = findMaxBT(rootNode.left);
@@ -61,6 +61,11 @@ function getHeight (rootNode) {
 
   // return left > right ? left + 1 : right + 1;
   return Math.max(left, right) + 1;
+
+  // breadth first traversal method
+
+
+
 }
 
 let btRootBig;
@@ -151,40 +156,65 @@ function inOrderPredecessor (rootNode, target) {
   //   return left.val;
   // }
 
-  if (balancedTree(rootNode) === false) {
-    if (rootNode.val === target) {
-      predecessor = rootNode.right;
-      while (predecessor.right) {
-        predecessor = predecessor.right;
+  // attempt #2: fail
+  // if (balancedTree(rootNode) === false) {
+  //   if (rootNode.val === target) {
+  //     predecessor = rootNode.right;
+  //     while (predecessor.right) {
+  //       predecessor = predecessor.right;
+  //     }
+
+  //     return predecessor.val;
+  //   }
+  // }
+
+  // if (!rootNode) {
+  //   return null;
+  // }
+
+  // let predecessor = null;
+
+  // if (rootNode.val === target) {
+  //   predecessor = rootNode.left;
+  //   while (predecessor.left) {
+  //     predecessor = predecessor.right;
+  //   }
+
+  //   return predecessor.val;
+  // }
+
+
+  // return predecessor;
+
+  let pred;
+
+  // if (!rootNode) return null;
+
+  while(rootNode) {
+    if (target < rootNode.val) {
+      rootNode = rootNode.left;
+    } else if (target > rootNode.val) {
+      pred = rootNode;
+      rootNode = rootNode.right;
+    } else {
+      if (rootNode.left) {
+        pred = findMax(rootNode.left);
       }
-
-      return predecessor.val;
-    }
-  }
-
-  if (!rootNode) {
-    return null;
-  }
-
-  let predecessor = null;
-
-  if (rootNode.val === target) {
-    predecessor = rootNode.left;
-    while (predecessor.left) {
-      predecessor = predecessor.right;
+      break;
     }
 
-    return predecessor.val;
   }
 
-
-  return predecessor;
+  if (pred) {
+    return pred.val
+  }
+  return null;
 
 }
 
-function findMinBSTNode(rootNode) {
-  while (rootNode.left) {
-    rootNode = rootNode.left;
+function findMax(rootNode) {
+  while (rootNode.right) {
+    rootNode = rootNode.right;
   }
 
   return rootNode;
@@ -239,11 +269,11 @@ function deleteNodeBST(rootNode, target) {
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
   else if (current.left && current.right) {
-    let predecessor = findMinBSTNode(current.right);
+    let predecessor = inOrderPredecessor(rootNode, current.val);
 
-    deleteNodeBST(rootNode, predecessor.val);
+    current.left = deleteNodeBST(current.left, predecessor);
 
-    current.val = predecessor.val;
+    current.val = predecessor;
   }
 
   // Case 3: One child:

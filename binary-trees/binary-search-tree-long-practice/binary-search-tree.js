@@ -14,7 +14,6 @@ class TreeNode {
 
     constructor() {
       this.root = null;
-      this.count = 0;
 
     }
 
@@ -48,21 +47,18 @@ class TreeNode {
       let newNode = new TreeNode(val);
       if (!this.root) {
         this.root = newNode;
-        this.count++;
         return this;
       }
 
       if (val < currentNode.val) {
         if (!currentNode.left) {
           currentNode.left = newNode;
-          this.count++;
         } else {
           this.insert(val, currentNode.left);
         }
       } else {
         if (!currentNode.right) {
           currentNode.right = newNode;
-          this.count++;
         } else {
           this.insert(val, currentNode.right)
         }
@@ -110,15 +106,15 @@ class TreeNode {
 
     inOrderTraversal(currentNode = this.root) {
 
-      let order = [];
+      // let order = [];
       if (currentNode) {
         this.inOrderTraversal(currentNode.left);
-        order.push(currentNode.val);
+        // order.push(currentNode.val);
         console.log(currentNode.val);
         this.inOrderTraversal(currentNode.right);
       }
 
-      return order;
+      // return order;
     }
 
 
