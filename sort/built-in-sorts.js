@@ -2,6 +2,10 @@
 // space complexity: O(1)
 
 function compareNums(a, b) {
+    // descending
+    // return b - a
+
+    // ascending
     return a - b;
 }
 
@@ -30,3 +34,31 @@ function moveZeroesCompare(a, b) {
 
 nums = [0, 1, 0, 4, 15];
 console.log(nums.sort(moveZeroesCompare))
+
+function alphabeticalOrder(array) {
+    return array.sort();
+}
+
+function generalCompare(a, b) {
+    // positive, sort b before a
+    if (a > b) return 1;
+
+    // 0 or negative, leave a and be in same order
+    if (a < b) return -1;
+
+    // a must be equal to be to return 0
+    if (a === b) return 0;
+
+}
+
+
+// best: O(nlog(n))
+// avg: O(nlog(n))
+// worst: O(nlog(n))
+// space: O(1)
+
+// timsort
+// best: O(n)
+// avg: O(nlog(n))
+// worst: O(nlog(n))
+// space: O(1)

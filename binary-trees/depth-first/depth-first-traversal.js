@@ -10,7 +10,11 @@ function depthFirstTraversal(root) {
         console.log(node.value);
 
         // put all of the node's children on top of the stack
+        // travel all the way bottom left, then right
+        // good for puzzle problems
         stack.push(node.right);
         stack.push(node.left);
     }
 }
+// space: O(n), n = height
+// uses less memory than BFT w larger n

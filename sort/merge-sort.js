@@ -1,3 +1,4 @@
+// divide and conquer
 function mergesort(arr) {
 
     // Check if the input is length 1 or less
@@ -6,7 +7,7 @@ function mergesort(arr) {
     }
       // If so, it's already sorted: return
 
-    // Divide the array in half
+    // Divide the array in half (divide)
     let half = Math.floor(arr.length / 2);
     let leftHalf = arr.slice(0, half);
     let rightHalf = arr.slice(half);
@@ -20,6 +21,7 @@ function mergesort(arr) {
     return merge(sortedLeft, sortedRight)
   }
 
+  // (conquer)
   // Takes in two sorted arrays and returns them merged into one
   function merge(arrA, arrB) {
 
@@ -53,3 +55,8 @@ function mergesort(arr) {
 
 
   console.log(mergesort([7,1,3,10,2,7]))
+// best: O(nlog(n))
+// avg: O(nlog(n))  // in-place || out-of-place: sort = O(log(n)), merge = O(n) => O(n*log(n))
+// worst: O(nlog(n))
+// in-place space: O(n)
+// out-of-place space: O(1)

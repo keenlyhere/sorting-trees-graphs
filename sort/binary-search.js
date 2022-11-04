@@ -1,4 +1,4 @@
-function binarySearch(arr, target) {    // time complexity: O(logn)  space complexity: O(1)
+function binarySearch(arr, target) {
 
     // Set integers pointing to the high and low range of possible indices
 
@@ -35,7 +35,10 @@ function binarySearch(arr, target) {    // time complexity: O(logn)  space compl
     // Return -1 if the loop exits with overlapping pointers
     return -1;
 
-  }
+}
+
+// time complexity: O(logn)  space complexity: O(1)
+// in-place
 
 
 let arr = [1, 5, 8, 10, 14, 26, 27, 32, 37, 51, 52,
@@ -44,3 +47,8 @@ let arr = [1, 5, 8, 10, 14, 26, 27, 32, 37, 51, 52,
 let target = 89;
 
 console.log(binarySearch(arr, target))
+
+// necessary conditions:
+// data must be sorted
+// data can be accessed by index in O(1) time
+    // this means cannot do binary search of LL or hash table

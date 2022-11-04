@@ -24,14 +24,36 @@ function findMaxBST (rootNode) {
 
 function findMinBT (rootNode) {
 
-  if (!rootNode) return;
+  // if (!rootNode) return;
 
-  let min = rootNode.val;
-  let left = findMinBT(rootNode.left);
-  let right = findMinBT(rootNode.right);
+  // let min = rootNode.val;
+  // let left = findMinBT(rootNode.left);
+  // let right = findMinBT(rootNode.right);
 
-  if (left < min) min = left;
-  if (right < min) min = right;
+  // if (left < min) min = left;
+  // if (right < min) min = right;
+
+  // return min;
+
+  // BFT
+  const queue = [rootNode];
+  let min = Infinity;
+
+  while (queue.length) {
+    let node = queue.shift();
+
+    if (node.val < min) {
+      min = node.val;
+    }
+
+    if (node.left) {
+      queue.push(node.left);
+    }
+
+    if (node.right) {
+      queue.push(node.right);
+    }
+  }
 
   return min;
 }
@@ -48,86 +70,162 @@ function findMaxBT (rootNode) {
   if (right > max) max = right;
 
   return max;
+
+
 }
 
 function getHeight (rootNode) {
 
-  if (!rootNode) return -1;
+  // if (!rootNode) return -1;
 
-  if (!rootNode.left && !rootNode.right) return 0;
+  // if (!rootNode.left && !rootNode.right) return 0;
 
-  let left = getHeight(rootNode.left);
-  let right = getHeight(rootNode.right);
+  // let left = getHeight(rootNode.left);
+  // let right = getHeight(rootNode.right);
 
-  // return left > right ? left + 1 : right + 1;
-  return Math.max(left, right) + 1;
+  // // return left > right ? left + 1 : right + 1;
+  // return Math.max(left, right) + 1;
 
   // breadth first traversal method
+  if (!rootNode) return -1;
 
+  let height = 0;
 
+  const queue = [rootNode];
+  queue.push(null);
 
+  while (queue.length) {
+
+    let node = queue.shift();
+
+    if (node === null) {
+      height++;
+    }
+
+    if (node !== null) {
+      if (node.left) {
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+
+    else if (queue.length) {
+      queue.push(null);
+    }
+
+  }
+
+  return height - 1;
 }
 
-let btRootBig;
-btRootBig = new TreeNode(13);
-    btRootBig.left = new TreeNode(2);
-    btRootBig.right = new TreeNode(3);
-    btRootBig.left.left = new TreeNode(4);
-    btRootBig.left.right = new TreeNode(5);
-    btRootBig.right.right = new TreeNode(6);
-    btRootBig.left.left.left = new TreeNode(7);
-    btRootBig.left.right.left = new TreeNode(8);
-    btRootBig.left.right.right = new TreeNode(9);
-    btRootBig.right.right.right = new TreeNode(10);
-    btRootBig.left.right.right.left = new TreeNode(11);
-    btRootBig.right.right.right.right = new TreeNode(12);
-    btRootBig.right.right.right.right.left = new TreeNode(1);
-    getHeight(btRootBig.left)  // 3
-    getHeight(btRootBig.right)  // 4
-
+// height of right and left +- 1 node
 function balancedTree (rootNode) {
 
-  if (!rootNode) {
-    return true;
-  }
+  // if (!rootNode) {
+  //   return true;
+  // }
 
-  let left = getHeight(rootNode.left);
-  let right = getHeight(rootNode.right);
-  if (Math.abs(left - right) <= 1 && balancedTree(rootNode.left) === true && balancedTree(rootNode.right) === true) {
-    return true;
-  }
+  // let left = getHeight(rootNode.left);
+  // let right = getHeight(rootNode.right);
+  // if (Math.abs(left - right) <= 1 && balancedTree(rootNode.left) === true && balancedTree(rootNode.right) === true) {
+  //   return true;
+  // }
 
-  return false;
+  // return false;
+
+  // BFT
+  if (!rootNode) return true;
+  const queue = [rootNode]
+  while (queue.length) {
+    let node = queue.shift()
+    if (getHeight(node.left) > getHeight(node.right) + 1
+      || getHeight(node.right) > getHeight(node.left) + 1) {
+      return false
+    }
+
+    if (node.left) {
+      queue.push(node.left)
+    }
+    if (node.right) {
+      queue.push(node.right)
+    }
+  }
+  return true
 }
 
 function countNodes (rootNode) {
-  if (!rootNode) return 0;
+  // if (!rootNode) return 0;
 
-  return (1 + countNodes(rootNode.left) + countNodes(rootNode.right))
+  // return (1 + countNodes(rootNode.left) + countNodes(rootNode.right))
+
+  // BFT
+
+  if (!rootNode) return -1;
+
+  let count = 0;
+  const queue = [rootNode];
+
+  while (queue.length) {
+
+    let node = queue.shift();
+
+    if (node.left) {
+      queue.push(node.left);
+    }
+
+    if (node.right) {
+      queue.push(node.right);
+    }
+
+    count++;
+  }
+
+  return count;
 
 }
 
 function getParentNode (rootNode, target) {
 
-  if (!rootNode || rootNode.val === target) {
-    return null;
-  }
+  // if (!rootNode || rootNode.val === target) {
+  //   return null;
+  // }
 
-  if (rootNode.left && rootNode.left.val === target ||
-    rootNode.right && rootNode.right.val === target) {
-      return rootNode;
-  }
+  // if (rootNode.left && rootNode.left.val === target ||
+  //   rootNode.right && rootNode.right.val === target) {
+  //     return rootNode;
+  // }
 
-  let left = getParentNode(rootNode.left, target);
+  // let left = getParentNode(rootNode.left, target);
 
-  if (left) {
-    return left;
-  }
+  // if (left) {
+  //   return left;
+  // }
 
-  let right = getParentNode(rootNode.right, target);
+  // let right = getParentNode(rootNode.right, target);
 
-  if (right) {
-    return right;
+  // if (right) {
+  //   return right;
+  // }
+
+  // return undefined;
+
+  if (rootNode.val === target) return null;
+
+  let stack = [rootNode];
+
+  while (stack.length > 0) {
+    let current = stack.pop();
+
+    if ((current.left && current.left.val === target) ||
+        (current.right && current.right.val === target)) {
+      return current;
+    }
+
+    if (current.left) stack.push(current.left);
+    if (current.right) stack.push(current.right);
   }
 
   return undefined;
@@ -135,80 +233,52 @@ function getParentNode (rootNode, target) {
 
 function inOrderPredecessor (rootNode, target) {
 
-  // if (rootNode === target) {
-  //   if (rootNode.left) {
-  //     let left = rootNode.left;
-  //     while (left.right) {
-  //       left = left.right;
+  // let pred;
+
+  // while(rootNode) {
+  //   if (target < rootNode.val) {
+  //     rootNode = rootNode.left;
+  //   } else if (target > rootNode.val) {
+  //     pred = rootNode;
+  //     rootNode = rootNode.right;
+  //   } else {
+  //     if (rootNode.left) {
+  //       pred = findMax(rootNode.left);
   //     }
-
-  //     return left.val;
-  //   }
-  // }
-
-  // if (rootNode.left) {
-  //   let left = rootNode.left;
-
-  //   while (left.right) {
-  //     left = left.right;
+  //     break;
   //   }
 
-  //   return left.val;
   // }
 
-  // attempt #2: fail
-  // if (balancedTree(rootNode) === false) {
-  //   if (rootNode.val === target) {
-  //     predecessor = rootNode.right;
-  //     while (predecessor.right) {
-  //       predecessor = predecessor.right;
-  //     }
-
-  //     return predecessor.val;
-  //   }
+  // if (pred) {
+  //   return pred.val
   // }
+  // return null;
 
-  // if (!rootNode) {
-  //   return null;
-  // }
+  let current = rootNode;
+  let stack = [];
+  let predecessor = null;
 
-  // let predecessor = null;
+  while (true) {
 
-  // if (rootNode.val === target) {
-  //   predecessor = rootNode.left;
-  //   while (predecessor.left) {
-  //     predecessor = predecessor.right;
-  //   }
+    if (current) {
+      stack.push(current);
+      current = current.left;
 
-  //   return predecessor.val;
-  // }
+    } else if (!current && stack.length > 0) {
+      current = stack.pop();
 
-
-  // return predecessor;
-
-  let pred;
-
-  // if (!rootNode) return null;
-
-  while(rootNode) {
-    if (target < rootNode.val) {
-      rootNode = rootNode.left;
-    } else if (target > rootNode.val) {
-      pred = rootNode;
-      rootNode = rootNode.right;
-    } else {
-      if (rootNode.left) {
-        pred = findMax(rootNode.left);
+      if (current.val === target) {
+        if (!predecessor) return null;
+        return predecessor.val;
       }
+      predecessor = current;
+      current = current.right;
+
+    } else {
       break;
     }
-
   }
-
-  if (pred) {
-    return pred.val
-  }
-  return null;
 
 }
 

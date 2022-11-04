@@ -14,6 +14,7 @@ const swap = (array, index1, index2) => {
 const bubbleSort = (array) => {
 
     let swapped = true;
+
     while (swapped) {
         swapped = false;
 
@@ -30,4 +31,8 @@ const bubbleSort = (array) => {
     return array;
 };
 
-console.log(bubbleSort([3, 2, 0, 4, 1]));
+console.log(bubbleSort([3, 2, 0, 4, 1]));  // [0,1,2,3,4]
+// best: O(n) => only on sorted arrays, in-place
+// avg: O(n^2)
+// worst: O(n^2) out-of-place
+// space: O(1) in-place, out-of-place

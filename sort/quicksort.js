@@ -1,11 +1,14 @@
+// divide and conquer
 function quickSort(array) {
 
+    // check if input is length 1 or less
+    // if so, already sorted: return
     if (array.length <= 1) {
         return array;
     }
 
     // choose value in array called "pivot"
-    let pivot = array.shift();
+    let pivot = array[0];
     // partition array so values smaller than pivot are on left
     let left = array.filter((ele) => ele < pivot);
     // larger on right
@@ -18,4 +21,20 @@ function quickSort(array) {
 
 }
 
-console.log(quickSort([5, 4, 10, 1, 8, 3, 6]))  // avg O(nlogn), worst O(n^2) // avg O(nlogn), best O(1)
+console.log(quickSort([5, 4, 10, 1, 8, 3, 6]))
+
+
+
+
+
+
+
+
+
+
+// best: O(nlog(n))
+// avg: O(nlog(n))
+// worst: O(n^2) => if pivot point chosen is greatest or smallest ele, or when arr already sorted in inc or dec order
+// time complex of quicksort depends on organization of data within the input array
+// in-place space: O(log(n))
+// out-of-place space: O(nlog(n))

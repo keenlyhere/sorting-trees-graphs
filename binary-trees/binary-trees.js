@@ -1,26 +1,21 @@
-// Before starting, copy and paste your guided practice work from
-// `binary-search-tree.js` into this file
-
-// Do not change this
 class TreeNode {
     constructor(val) {
       // must contain these properties
+      // no order in which nodes are placed
       this.val = val;
-      this.left = null;  // child value <= parent
-      this.right = null;  // child value >= parent
+      this.left = null;
+      this.right = null;
     }
   }
 
-  class BinarySearchTree {
+  class BinaryTree {
 
     constructor() {
-      // every BST must have this property
+      // every BT must have this property
       this.root = null;
 
     }
 
-    // balanced BST: O(log(n)) => one comparison per lvl
-    // unbalanced BST: O(n)
     insert(val, currentNode=this.root) {
       // iterative solution
       // let newNode = new TreeNode(val)
@@ -173,5 +168,3 @@ class TreeNode {
       }
   }
   }
-
-  module.exports = { BinarySearchTree, TreeNode };
